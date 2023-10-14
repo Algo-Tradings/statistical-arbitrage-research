@@ -28,10 +28,6 @@ def calculate_total_trades(signals: pd.Series) -> int:
     return len(np.where(np.diff(np.sign(signals)))[0])
 
 
-def calculate_win_trades(signals, returns):
-    pass
-
-
 def calculate_return_series(series: pd.Series) -> pd.Series:
     """
     Calculates the return series of a given time series.
@@ -107,7 +103,7 @@ DRAWDOWN_EVALUATORS: Dict[str, Callable] = {
 }
 
 
-def calculate_drawdown_series(series: pd.Series, method: str = 'log') -> pd.Series:
+def calculate_drawdown_series(series: pd.Series, method: str = 'percent') -> pd.Series:
     """
     Returns the drawdown series
     """
@@ -118,24 +114,10 @@ def calculate_drawdown_series(series: pd.Series, method: str = 'log') -> pd.Seri
     return evaluator(series, series.cummax())
 
 
-def calculate_max_drawdown(series: pd.Series, method: str = 'log') -> float:
+def calculate_max_drawdown(series: pd.Series, method: str = 'percent') -> float:
     """
     Simply returns the max drawdown as a float
     """
     return calculate_drawdown_series(series, method).max()
 
-# def calculate_max_drawdown(series: pd.Series) -> float:
-#     """
-#     Simply returns the max drawdown as a float
-#     """
-#     s = (series+1).cumprod()
-#     return np.ptp(s)/s.max()
 
-# def calculate_max_drawdown(series: pd.Series) -> float:
-#     """
-#     Simply returns the max drawdown as a float
-#     """
-#     peaks = np.maximum.accumulate(series)
-#     troughs = np.minimum.accumulate(series)
-#     drawdowns = (troughs - peaks) / peaks
-#     return np.max(drawdowns)

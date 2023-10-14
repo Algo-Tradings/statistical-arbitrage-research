@@ -33,7 +33,7 @@ class Backtester:
     def __run_single_backtest(self, currency1, currency2) -> None:
         pair_df = self.__set_pair_df(currency1, currency2)
         result_df = self.__get_result(pair_df, currency1, currency2)
-        self.results_df = pd.concat([self.results_df, result_df])
+        self.results_df = (pd.concat([self.results_df, result_df])).sort_values(by='sharperatio', ascending=False)
 
     def __set_pair_df(self, currency1, currency2):
         prices1 = self.hist_df[currency1].close
@@ -71,9 +71,8 @@ class Backtester:
         n_trades = metrics.calculate_total_trades(__signals)
         if n_trades > 1:
             result_df = pd.DataFrame([n_trades], columns=['n_trades'])
-            # result_df['win_rate'] = metrics.calculate_win_rate(result_df.n_trades, returns)
             result_df['sharperatio'] = metrics.calculate_sharpe_ratio(__returns)
-            result_df['max_drawdown'] = round(metrics.calculate_max_drawdown(__returns, method='log') * 100, 2)
+            result_df['max_drawdown'] = round(metrics.calculate_max_drawdown(__returns, method='percent') * 100, 2)
             result_df['roi'] = round(metrics.calculate_percent_return(__returns) * 100, 2)
             result_df['currency1'] = currency1
             result_df['currency2'] = currency2
