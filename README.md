@@ -1,6 +1,6 @@
 # statistical-arbitrage-research
  
-Research Environment to Find the Best Cryptocurrencies for Statistical Arbitrage
+Research Environment to Find the Best Statistical Arbitrage Cryptocurrencies.
 
 Hello everyone! This repo can find the most profitable coins in a selected historical data.
 
