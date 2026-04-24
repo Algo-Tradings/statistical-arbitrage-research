@@ -28,7 +28,7 @@ class Metrics:
     @staticmethod
     def __set_hedge_ratio(series1, series2):
         model = sm.OLS(series1, series2).fit()
-        return model.params[0]
+        return model.params.iloc[0]
 
     def __get_zero_crossings(self, series1, series2, ratio):
         return len(np.where(np.diff(np.sign(self.__calculate_spread(series1, series2, ratio))))[0])

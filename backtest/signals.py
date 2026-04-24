@@ -11,7 +11,7 @@ def set_signals(series: pd.Series,  open_at: float = 2.0, close_at: float = 0.0)
         buy_entry_signal = series.iloc[i] <= -abs(open_at)
         buy_close_signal = (signals.iloc[i-1] == 1) & (series.iloc[i] <= abs(close_at))
 
-        sell_entry_signal = series[i] >= abs(open_at)
+        sell_entry_signal = series.iloc[i] >= abs(open_at)
         sell_close_signal = (signals.iloc[i-1] == -1) & (series.iloc[i] >= -abs(close_at))
 
         signals.iloc[i] = 1 if buy_entry_signal or buy_close_signal else -1 if sell_entry_signal or sell_close_signal else 0

@@ -59,7 +59,7 @@ class Plotter:
             series1 = self.pair_df[self.currency1]
             series2 = self.pair_df[self.currency2]
 
-            ratio = sm.OLS(series1, series2).fit().params[0]
+            ratio = sm.OLS(series1, series2).fit().params.iloc[0]
             dates = series1.index = pd.to_datetime(series1.index)
 
             ax.plot(dates, series1)

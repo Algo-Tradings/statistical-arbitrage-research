@@ -4,7 +4,7 @@ import pandas as pd
 class Cleaner:
     @staticmethod
     def fill_missing_data(df: pd.DataFrame) -> pd.DataFrame:
-        return df.fillna(method='ffill')
+        return df.ffill()
 
     def get_cleaned_data(self, hist_df: pd.DataFrame) -> pd.DataFrame:
         return self.__remove_young_currencies(self.__get_data_close(hist_df))
